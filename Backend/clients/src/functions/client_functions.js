@@ -25,11 +25,7 @@ const client_functions= {
 
         try{
 
-            const clients = await Client.findAll({attributes:
-                                                {exclude: ['password']},
-                                                limit,
-                                                offset,
-                                            });
+            const clients = await Client.findAll({attributes: limit,offset,});
             return clients;
 
         }catch(error){
@@ -45,27 +41,12 @@ const client_functions= {
 
 
 
-    async get_client_ById(id, fields = null) {
+    async get_client_ById(id) {
 
         try{
 
-            let attributes;
-
-            if (fields) {
-              attributes = fields
-                .split(',')
-                .map((f) => f.trim())
-                .filter(Boolean);
     
-              attributes = attributes.filter((f) => f.toLowerCase() !== 'password');
-
-            } else {
-
-              attributes = { exclude: ['password'] };
-            }
-          
-    
-            const client = await Client.findByPk(id, { attributes });
+            const client = await Client.findByPk(id);
           
             if (!client) {
               throw new Error(`Client ${id} doesn't exist ~_~`);
@@ -87,26 +68,6 @@ const client_functions= {
       
 
 
-      async create_user(user){
-
-        try{
-
-            const user_exist = await User.findOne( {where: {email: user.email}})
-
-            if (user_exist){
-                throw new Error(`The user ${user.email} already exists ~_~`)
-            }
-
-            const new_user = await User.create(user)
-
-        }catch(error){
-
-            console.log("There was an error crearing the user ~_~")
-            throw error
-
-        }
-
-      }
       
 
 
