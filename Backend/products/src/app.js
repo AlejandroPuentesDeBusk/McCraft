@@ -1,5 +1,5 @@
 import express from 'express';
-import router from './routes/routes_products.js';
+import router from './routes/routes_product.js';
 import { errorHandler } from './middlewares/error_handler.js';
 
 
