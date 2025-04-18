@@ -14,10 +14,26 @@ Product.init(
         primaryKey: true 
     },
 
-    name:        { type: DataTypes.STRING(60), allowNull: false },
-    description: { type: DataTypes.TEXT,       allowNull: true  },
-    base_price:  { type: DataTypes.DECIMAL(10,2), allowNull: false },
-    category:    { type: DataTypes.ENUM('burger','side','drink','dessert'), allowNull: false },
+    name: { 
+      type: DataTypes.STRING(60), 
+      allowNull: false 
+    },
+
+    description:
+    { 
+      type: DataTypes.TEXT,       
+      allowNull: true  
+    },
+
+    base_price:{ 
+      type: DataTypes.DECIMAL(10,2), 
+      allowNull: false 
+    },
+
+    category:{ 
+      type: DataTypes.ENUM('burger','side','drink','dessert'), 
+      allowNull: false 
+    },
 
 
     image_url:{ 

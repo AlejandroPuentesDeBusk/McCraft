@@ -6,6 +6,7 @@ import Product from './Product.js';
 class ComboProduct extends Model {}
 
 ComboProduct.init(
+  
   {
     quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
   },
