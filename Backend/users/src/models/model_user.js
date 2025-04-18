@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import sequelize from "../data_base/data_base_conection";
+import sequelize from "../data_base/data_base_conection.js";
 
 
 //https://sequelize.org/docs/v6/core-concepts/model-basics/
@@ -32,7 +32,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate:{
-                max: 15
+                len:[1,15]
             }
         },
 
@@ -40,7 +40,7 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate:{
-                max: 20
+                len:[1,20]
             }
         },
 
@@ -77,11 +77,10 @@ User.init(
             allowNull: false,
         }
     },
-
-    {
         //_____We must add the conection with sequelize_______
-        sequelize,
+    { sequelize },
 
-    }
+    
 );
 
+export default User;

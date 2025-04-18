@@ -1,11 +1,14 @@
 import { Sequelize } from "sequelize";
-require ('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const db_host = process.env.DB_HOST;
 const db_name = process.env.DB_NAME;
 const db_user = process.env.DB_USER;
 const db_port = process.env.DB_PORT;
 const db_password = process.env.DB_PASSWORD;
+
 
 
 //https://sequelize.org/docs/v6/getting-started/
@@ -21,21 +24,28 @@ const sequelize = new Sequelize( db_name , db_user, db_password, {
 
 //___________________Test teh connection_______________________
 
-try{
-    await sequelize.authenticate();
-    console.log("The connection succed 0_0");
-} catch (error){
-    console.log("There was a problem in the conection ~_~", error);
-};
+const connect = async ()=>{
 
-//__________________sincronize tables__________________________
+    try{
+        await sequelize.authenticate();
+        console.log("The connection succed 0_0");
+    } catch (error){
+        console.log("There was a problem in the conection ~_~", error);
+    };
+    
+    //__________________sincronize tables__________________________
+    
+    try{
+        await sequelize.sync({alter:true});
+        console.log("The models are sincronized 0_0 ")
+    }catch(error){
+        console.log("Sequielize sync failed ~_~: ", error)
+    };
 
-try{
-    await sequelize.sync({alter:true});
-    console.log("The models are sincronized 0_0 ")
-}catch(error){
-    console.log("Sequielize sync failed ~_~: ", error)
-};
+}
+
+connect();
+
 
 
 
