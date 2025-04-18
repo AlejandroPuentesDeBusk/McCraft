@@ -1,5 +1,6 @@
 import User from "../models/model_user.js";
 import sequelize from '../data_base/data_base_conection.js';
+import amqp from 'amqplib';
 
 
 import jwt from 'jsonwebtoken';
@@ -95,6 +96,8 @@ const user_functions= {
             }
 
             const new_user = await User.create(user)
+
+            return new_user;
 
         }catch(error){
 
