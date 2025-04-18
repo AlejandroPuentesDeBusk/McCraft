@@ -2,6 +2,7 @@ import Client from '../models/client_model.js'
 import Address from '../models/address_model.js';
 import sequelize from '../data_base/data_base_conection.js';
 
+import { get_rabbit_channel } from '../rabbit/connection_rabbit.js';
 
 import jwt from 'jsonwebtoken';
 
@@ -25,7 +26,7 @@ const client_functions= {
 
         try{
 
-            const clients = await Client.findAll({attributes: limit,offset,});
+            const clients = await Client.findAll({limit,offset,});
             return clients;
 
         }catch(error){
@@ -64,6 +65,30 @@ const client_functions= {
         }
 
       },
+
+      //cuando creo un cliente se va a crear un usuario
+//________________________________________________________________________________
+
+      async create_client(client_data){
+
+        try{
+
+          const client = Client.create(client_data);
+
+          return client;
+
+        }catch(error){
+
+
+          console.log(`There was an error creating the client`, error);
+          throw error;
+
+        }
+
+
+
+
+      }
 
       
 

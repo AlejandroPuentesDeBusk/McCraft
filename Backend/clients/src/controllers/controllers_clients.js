@@ -1,4 +1,5 @@
 import client_functions from '../functions/client_functions.js'
+import { create_client_with_user } from '../functions/rabbit_functions.js';
 
 //el next es para agarrar el error del servicio, ahi que ir aventando el mismo error
 //asi sale en postman directo sin tener que ver los logs
@@ -37,5 +38,19 @@ export const get_client_by_id= async(req, res, next) => {
     } catch(error){
         
         next(error)
+    }
+
+
+}
+
+
+export const create_client = async (req, res, next) =>{
+    
+    try{
+        const result = await create_client_with_user(req.body);
+        res.status(200).json(result);
+        
+    }catch(error){
+        next(error);
     }
 }
