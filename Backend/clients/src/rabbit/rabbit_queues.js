@@ -39,8 +39,9 @@ export async function request_create_user(user_data) {
 
     // Ahora si mandamos el mensaje a la cola que el users escucha
     console.log("Waiting for an answer 0_0")
-    channel.sendToQueue(
-      'create_user',
+
+    channel.sendToQueue('create_user',
+      
       Buffer.from(JSON.stringify(user_data)),
       {
         correlationId: match_message_id,           
