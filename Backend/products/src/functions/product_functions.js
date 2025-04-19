@@ -1,6 +1,6 @@
 import Product from '../models/product_model.js';
 import ProductSize from '../models/associations/product_size_model.js';
-
+import ProductIngredient from '../models/associations/product_ingredient.js'
 
 const product_functions = {
 
@@ -155,6 +155,36 @@ const product_functions = {
 
       console.error(`Error deleting product ${id}: ~_~`, error);
       throw error;
+    }
+  },
+
+  //________________________________________________________________
+
+  /**
+   * Asigna o reemplaza la receta (ingredientes) de un producto
+   * @param {number} product_id
+   * @param {Array<{ ingredient_id: number, quantity: number }>} ingredients
+   */
+  async set_product_ingredients(product_id, ingredients) {
+    try {
+      // 1) Borra la receta anterior
+      await ProductIngredient.destroy({ where: { product_id } });
+
+      // 2) Inserta la nueva
+      const rows = ingredients.map(i => ({
+        product_id,
+        ingredient_id: i.ingredient_id,
+        quantity: i.quantity
+      }));
+      await ProductIngredient.bulkCreate(rows);
+
+      // 3) Devuelve la lista actualizada (opcional)
+      return await ProductIngredient.findAll({
+        where: { product_id }
+      });
+    } catch (err) {
+      console.error(`Error setting recipe for product ${product_id}:`, err);
+      throw err;
     }
   }
 };

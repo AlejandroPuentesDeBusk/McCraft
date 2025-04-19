@@ -1,7 +1,7 @@
 import express from 'express';
 import { get_ingredients, get_ingredient_by_id, delete_ingredient, create_ingredient, update_ingredient } from '../controllers/ingredients_controllers.js';
 
-import { get_products, get_product_by_id, delete_product, update_product, create_product } from '../controllers/products_controllers.js';
+import { get_products, get_product_by_id, delete_product, update_product, create_product, set_product_ingredients } from '../controllers/products_controllers.js';
 
 const router = express.Router();
 
@@ -20,10 +20,14 @@ router.delete('/ingredients/delete/:id', delete_ingredient);
 
 
 router.get('/product',get_products);
-router.get('/gproduct:id',get_product_by_id);
+router.get('/gproduct/:id',get_product_by_id);
+
+
 router.post('/product/create',create_product);
 router.put('/product/update/:id',update_product);
 router.delete('/product/delete/:id',delete_product);
+
+router.post('/product/ingredients/:id', set_product_ingredients);
 
 
 

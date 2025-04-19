@@ -89,4 +89,30 @@ export const delete_product = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
 };
+
+  //___________________________________________________________
+
+
+  export const set_product_ingredients = async (req, res, next) => {
+
+
+    try {
+
+      const { id: product_id } = req.params;
+      const ingredients = req.body;  // se espera un array
+  
+
+      const updatedRecipe = await product_functions.set_product_ingredients(
+        product_id,
+        ingredients
+      );
+
+      res.status(200).json(updatedRecipe);
+
+      
+    } catch (error) {
+      next(error);
+    }
+  };
