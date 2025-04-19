@@ -48,7 +48,7 @@ export const create_ingredient = async(req,res,next) => {
 
 //______________________________________________________________
 
-export const update_ingredient = async(req,res,next) => {
+export const update_ingredient_s = async(req,res,next) => {
 
     try{
 
