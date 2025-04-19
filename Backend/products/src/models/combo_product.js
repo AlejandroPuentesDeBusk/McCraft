@@ -11,6 +11,7 @@ ComboProduct.init(
     quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }
   },
   { sequelize, modelName: 'ComboProduct' }
+  
 );
 
 Combo.belongsToMany(Product, { through: ComboProduct, foreignKey: 'combo_id' });
