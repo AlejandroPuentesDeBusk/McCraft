@@ -90,3 +90,20 @@ export const delete_user = async(req, res, next) =>{
         next(error)
     }
 }
+
+//________________-Login___________________________________
+
+
+export const login = async(req, res, next) =>{
+
+    try{
+
+        const login_data = req.body;
+
+        const login_now = await user_functions.login(login_data)
+        res.status(200).json(login_now);
+
+    }catch(error){
+        next(error)
+    }
+}

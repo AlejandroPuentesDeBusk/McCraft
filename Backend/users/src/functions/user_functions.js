@@ -1,14 +1,15 @@
 import User from "../models/model_user.js";
-import sequelize from '../data_base/data_base_conection.js';
-import amqp from 'amqplib';
 
-
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
 import dotenv from 'dotenv';
-import { update_client } from "../../../clients/src/controllers/controllers_clients.js";
+
 dotenv.config();
+
+
+const login_key= process.env.SECRET_KEY_LOGIN
 
 //_________________________________
 
@@ -97,7 +98,9 @@ const user_functions= {
                 throw new Error(`The user ${user.email} already exists ~_~`)
             }
 
-            const new_user = await User.create(user)
+            const encrypt_password = await bcrypt.hash(user.password, 10);
+
+            const new_user = await User.create({...user, password: encrypt_password})
 
             return new_user;
 
@@ -126,9 +129,24 @@ const user_functions= {
         }
 
         user.name = user_data.name  ?? user.name;
-        user.last_anme = user_data.last_anme ?? user.last_anme;
+        user.last_anme = user_data.last_name ?? user.last_name;
         user.email = user_data.email ?? user.email;
-        user.password = user_data.password ?? user.password;
+
+
+
+        if(user_data.password){
+
+          if(user_data.password.length < 8 ){
+            throw new Error("Password must be at leats 8 characters ~_~");
+          }
+
+          const encrypt_password = await bcrypt.hash(user_data.password, 10);
+          user.password = encrypt_password 
+
+        }else{
+          user.password = user.password
+        }
+
 
 
         user.image_url = user_data.image_url ?? user.image_url;
@@ -174,9 +192,57 @@ const user_functions= {
         console.log(`There was ana error deleting the user ~_~`, error)
         throw error;
       }
-    }
+    },
 
 
+    //___________________________-Login_____________________________
+
+    async login(login_data){
+
+      const {email, password} = login_data;
+
+      try{
+
+        if(!email || !password){
+
+          throw new Error(`There is no email or passowrd in the request`)
+        }
+
+        const login_user = await User.findOne({where: {email, is_active: true}})
+
+        if(!login_user){
+           throw new Error(`User with email ${email} doesn't exist ~_~`)
+        }
+
+
+        const match_password = await bcrypt.compare(password, login_user.password);
+
+        if(!match_password){
+          throw new Error("Incorrect password ~_~");
+        }
+
+
+
+        const token = jwt.sign({
+
+        
+          user_id: login_user.user_id,
+          name: login_user.name,
+          last_name: login_user.last_name,
+          email: login_user.email, 
+          role: login_user.role,
+        },
+        login_key,
+        {expiresIn: '12h'}
+        );
+
+        return {token};
+
+        }catch(error){
+          console.log("There was an error login in ~_~", error);
+          throw error;
+        }
+
+    },
 }
-
 export default user_functions;

@@ -1,5 +1,5 @@
 import express from 'express';
-import { get_user_by_id, get_users, update_user, delete_user, create_user } from '../controllers/controllers_users.js';
+import { get_user_by_id, get_users, update_user, delete_user, create_user, login } from '../controllers/controllers_users.js';
 
 
 
@@ -15,6 +15,8 @@ router.post('/create', create_user);
 router.put('/update/:id', update_user);
 router.delete('/delete/:id', delete_user);
 
+
+router.post('/login', login);
 
 
 
