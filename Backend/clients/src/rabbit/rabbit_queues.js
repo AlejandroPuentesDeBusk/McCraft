@@ -8,6 +8,8 @@ import { v4 as id_r_message } from 'uuid';
 //esta funcion va a mandar el mesaje para que se cree un usuario y que se espere el wey
 export async function request_create_user(user_data) {
 
+
+  
     //nos conectamos al canal de rabbit que hice en el otro archivo
   const channel = await get_rabbit_channel();
 
@@ -41,7 +43,7 @@ export async function request_create_user(user_data) {
     console.log("Waiting for an answer 0_0")
 
     channel.sendToQueue('create_user',
-      
+
       Buffer.from(JSON.stringify(user_data)),
       {
         correlationId: match_message_id,           

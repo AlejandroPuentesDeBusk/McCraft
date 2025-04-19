@@ -73,30 +73,73 @@ const client_functions= {
 
         try{
 
-          const client = Client.create(client_data);
+          const client = await Client.create(client_data);
 
           return client;
 
         }catch(error){
 
 
-          console.log(`There was an error creating the client`, error);
+          console.log(`There was an error creating the client ~_~`, error);
           throw error;
 
         }
 
+      },
+
+      
+    //_______________________________
 
 
+    async update_client(id, client_data){
 
+
+      try{
+
+        const client = await Client.findByPk(id);
+
+        if (!client){
+          throw new Error(`Client with id:${id} doesn't exist ~_~`);
+        }
+
+        client.phone = client_data.phone ?? client.phone;
+
+        await client.save();
+
+        return client;
+
+      }catch(error){
+
+        console.log(`There was an error updating the client ~_~`, error)
+        throw error;
       }
 
-      
+    },
+
+    //___________________________________________
+
+    async delete_client(id){
+
+      try{
+
+        const client = await Client.findByPk(id);
+
+        if(!client){
+          throw new Error(`Client with id ${id} doesn't exist ~_~`);
+        }
+
+        client.is_active = false
+        await client.save();
+
+        return client;
 
 
-      
+      }catch(error){
 
-
-    //_______________________________
+        console.log(`There was ana error deleting the client ~_~`, error)
+        throw error;
+      }
+    }
 
 
 

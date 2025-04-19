@@ -43,7 +43,7 @@ export const get_client_by_id= async(req, res, next) => {
 
 }
 
-
+//_______________________________________________________
 export const create_client = async (req, res, next) =>{
     
     try{
@@ -53,4 +53,39 @@ export const create_client = async (req, res, next) =>{
     }catch(error){
         next(error);
     }
+}
+
+
+//________________________________________________
+export const update_client = async(req, res, next) =>{
+
+
+    try{
+        const {id} = req.params;
+        const client = req.body;
+
+        const update = await client_functions.update_client(id, client);
+        res.status(200).json(update);
+
+    }catch(error){
+        next(error);
+    }
+}
+
+//__________________________________________________
+
+export const delete_client = async(req,res, next) =>{
+
+
+    try{
+
+        const {id} = req.params;
+        
+        const client = await client_functions.delete_client(id);
+        res.status(200).json(client);
+    
+    }catch(error){
+        next(error)
+    }
+
 }
