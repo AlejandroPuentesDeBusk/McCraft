@@ -14,7 +14,7 @@ class Address extends Model {
       this.zip_code
     ]
     //si alguno llega como null el booleano lo quita y une lo demas
-    //lo hice por si es que sirve de algo la funcion pero quien sabe 
+    //lo hice por si es que sirve de algo la funcion pero quien sabe
       .filter(Boolean)
       .join(', ');
   }
@@ -59,7 +59,12 @@ Address.init(
     is_default: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    }
+    },
+
+    is_active:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
   },
   { sequelize}
 );
