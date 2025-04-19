@@ -103,6 +103,7 @@ const client_functions= {
         }
 
         client.phone = client_data.phone ?? client.phone;
+        client.is_active = client_data.is_active ?? client.is_active;
 
         await client.save();
 

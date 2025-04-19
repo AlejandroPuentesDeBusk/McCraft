@@ -129,7 +129,7 @@ const user_functions= {
         }
 
         user.name = user_data.name  ?? user.name;
-        user.last_anme = user_data.last_name ?? user.last_name;
+        user.last_name = user_data.last_name ?? user.last_name;
         user.email = user_data.email ?? user.email;
 
 
@@ -152,6 +152,8 @@ const user_functions= {
         user.image_url = user_data.image_url ?? user.image_url;
 
         user.role = user_data.role ?? user.role
+
+        user.is_active = user_data.is_active ?? user.is_active
 
 
 
