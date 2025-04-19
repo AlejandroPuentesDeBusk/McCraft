@@ -41,3 +41,52 @@ export const get_user_by_id= async(req, res, next) => {
         next(error)
     }
 }
+
+//_________________________________________________________________
+
+
+export const create_user = async(req, res, next) =>{
+
+    try{
+
+        const user_data = req.body;
+
+        const user = await user_functions.create_user(user_data);
+        res.status(200).json(user);
+    }catch(error){
+        next(error)
+    }
+}
+
+
+//___________________________________________________________-
+
+export const update_user = async(req, res, next) =>{
+
+    try{
+
+        const {id} = req.params;
+        const user_data = req.body;
+
+        const user = await user_functions.update_user(id, user_data);
+        res.status(200).json(user);
+    }catch(error){
+        next(error)
+    }
+}
+
+//______________________________________________________________
+
+
+export const delete_user = async(req, res, next) =>{
+
+    try{
+
+        const {id} = req.params;
+
+        const user = await user_functions.delete_user(id);
+        res.status(200).json(user);
+    }catch(error){
+        next(error)
+    }
+}

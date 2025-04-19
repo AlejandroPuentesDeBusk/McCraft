@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 
 
 import dotenv from 'dotenv';
+import { update_client } from "../../../clients/src/controllers/controllers_clients.js";
 dotenv.config();
 
 //_________________________________
@@ -84,6 +85,7 @@ const user_functions= {
 
       },
 
+      //____________________________________________________________________________
 
       async create_user(user){
 
@@ -106,13 +108,73 @@ const user_functions= {
 
         }
 
-      }
+      },
       
 
 
-    //_______________________________
+    //_____________________________________________________--
+
+    async update_user(id, user_data){
+
+      try{
+
+        const user = await User.findByPk(id);
+
+        if (!user){
+
+          throw new Error(`The user with id : ${id} doesn't exist ~_~`);
+        }
+
+        user.name = user_data.name  ?? user.name;
+        user.last_anme = user_data.last_anme ?? user.last_anme;
+        user.email = user_data.email ?? user.email;
+        user.password = user_data.password ?? user.password;
 
 
+        user.image_url = user_data.image_url ?? user.image_url;
+
+        user.role = user_data.role ?? user.role
+
+
+
+
+        await user.save();
+        return user
+
+      }catch(error){
+        console.log(`There was an error updating the user with id: ${id} ~_~`, error)
+        throw error;
+
+
+      }
+    },
+
+
+    //_________________________________________________________________________
+
+
+    async delete_user(id){
+
+      try{
+
+        const user = await User.findByPk(id);
+
+        if(!user){
+          throw new Error(`User with id ${id} doesn't exist ~_~`);
+        }
+
+        user.is_active = false
+        await user.save();
+
+        return user;
+
+
+      }catch(error){
+
+        console.log(`There was ana error deleting the user ~_~`, error)
+        throw error;
+      }
+    }
 
 
 }
