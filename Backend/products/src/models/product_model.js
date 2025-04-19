@@ -30,6 +30,12 @@ Product.init(
       allowNull: false 
     },
 
+    is_composite: { 
+      type: DataTypes.BOOLEAN, 
+      defaultValue: false 
+
+    },
+
     category:{ 
       type: DataTypes.ENUM('burger','side','drink','dessert'), 
       allowNull: false 

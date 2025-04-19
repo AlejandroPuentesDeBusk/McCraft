@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../data_base/data_base_conection.js';
-import CustomBurger from './CustomBurger.js';
-import Ingredient from './Ingredient.js';
+import sequelize from '../../data_base/data_base_conection.js';
+import CustomBurger from '../custom_model.js'
+import Ingredient from '../ingredient_model.js'
 
 
 

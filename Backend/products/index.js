@@ -1,12 +1,14 @@
 import dotenv from 'dotenv';
 
-import app from './src/app.js';
+
 
 dotenv.config();
 const port = process.env.PORT;
 
+import app from './src/app.js';
+import './src/models/index.js';   
 
-//Here we just add app so the routes run in the specified port
+
 
 app.listen(port, () => {
     console.log(`products service is running on port: ${port} 0_0`)
