@@ -14,7 +14,7 @@ const combo_functions = {
     try {
       return await Combo.findAll({ limit, offset, raw: true });
     } catch (err) {
-      console.error("Error getting combos", err);
+      console.error("Error getting combos ~_~", err);
       throw err;
     }
   },
@@ -29,7 +29,7 @@ const combo_functions = {
     return combo;
   
     } catch (err) {
-      console.error(`Error getting combo ${id}`, err);
+      console.error(`Error getting combo with id:  ${id} ~_~`, err);
       throw err;
     }
   },
@@ -84,7 +84,7 @@ const combo_functions = {
   async update_combo(id, data) {
     try {
       const combo = await ComboProduct.findByPk(id);
-      if (!combo) throw new Error(`Combo ${id} not found`);
+      if (!combo) throw new Error(`Combo ${id} not found ~_~`);
       combo.quantity = data.quantity ?? combo.quantity;
       await combo.save();
       return combo;
@@ -98,7 +98,7 @@ const combo_functions = {
   async delete_combo(id) {
     const combo = await Combo.findByPk(id);
     if (!combo) {
-      throw new Error(`Combo ${id} not found`);
+      throw new Error(`Combo ${id} not found ~_~`);
     }
     combo.is_active = false;
     await combo.save();

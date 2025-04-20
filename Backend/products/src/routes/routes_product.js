@@ -36,6 +36,20 @@ import { list_by_combo,
     list_all_combos } from '../controllers/associations_tables_controllers/combo_product_controller.js';
 
 
+//________________________________custom_burguer________________________________________________
+
+
+import  {
+    get_custom_burgers, 
+    get_custom_by_id, 
+    get_custom_full, 
+    create_custom, 
+    delete_custom, 
+    update_custom,
+    add_custom_ingredient,
+    remove_custom_ingredient} from '../controllers/custom_controllers.js';
+
+
 //_____________________-Token___________________________________________________
 
 import { authenticate_token } from '../middlewares/token_auth.js';
@@ -107,6 +121,25 @@ router.get('/combos/products/:comboId',                         list_by_combo);
 router.post('/combos/products/add/:comboId',                        add_product);
 router.put('/combos/products/update/:comboId/:productId',       update_quantity);
 router.delete('/combos/products/remove/:comboId/:productId',    remove_product);
+
+
+//______________custom_burguer__________________________
+
+router.get('/custom', get_custom_burgers);
+router.get('/custom/:id', get_custom_by_id);
+router.get('/customfull/:id', get_custom_full);
+
+router.post('/custom/create', create_custom);
+
+router.put('/custom/update/:id', update_custom);
+router.put('/custom/addingredient/:id', add_custom_ingredient);
+
+
+router.delete('/custom/delete/:id', delete_custom );
+router.delete('/custom/deleteIngredient/:id/:ingredientId', remove_custom_ingredient);
+
+
+
 
 
 
