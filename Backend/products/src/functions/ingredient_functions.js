@@ -92,6 +92,7 @@ const ingredient_functions= {
             ingredient.price = ingredient_data.price ?? ingredient.price;
             ingredient.image_url = ingredient_data.image_url ?? ingredient.image_url;
             ingredient.stock = ingredient_data.stock ?? ingredient.stock;
+            ingredient.is_active = ingredient_data.is_active ?? ingredient.is_active;
 
             await ingredient.save();
             return ingredient

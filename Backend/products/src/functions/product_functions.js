@@ -63,7 +63,7 @@ const product_functions = {
       const newProduct = await Product.create(baseData);
 
 
-      // Si vienen tamaños, crear variantes
+      // Si vienen tamaños, crear variantes estos se meten en un array, en postman es la parte de hasta abajo donde dise size
       if (Array.isArray(sizes) && sizes.length) {
 
         const withProductId = sizes.map(s => ({

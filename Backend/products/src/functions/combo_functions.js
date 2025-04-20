@@ -5,11 +5,14 @@ import sequelize from '../../../users/src/data_base/data_base_conection.js';
 
 const combo_functions = {
   // GET /api/combos?limit=40&offset=0
+
+
+
   async get_combos({ limit = 40, offset = 0 } = {}) {
     limit  = +limit  || 40;
     offset = +offset || 0;
     try {
-      return await ComboProduct.findAll({ limit, offset, raw: true });
+      return await Combo.findAll({ limit, offset, raw: true });
     } catch (err) {
       console.error("Error getting combos", err);
       throw err;
@@ -42,7 +45,7 @@ const combo_functions = {
     });
 
     if (!combo) {
-      throw new Error(`Combo ${id} not found`);
+      throw new Error(`Combo with id: ${id} not found ~_~`);
     }
 
     return combo;
