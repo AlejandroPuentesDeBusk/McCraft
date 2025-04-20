@@ -66,9 +66,10 @@ User.init(
             allowNull: true,
         },
 
-        role:{
-            type: DataTypes.ENUM('client', 'chef', 'admin'),
-            allowNull: false
+        role: {
+            type: DataTypes.ENUM('client','chef','admin'),
+            allowNull: false,
+            defaultValue: 'client'    // ← DEFAULT
         },
 
         is_active:{

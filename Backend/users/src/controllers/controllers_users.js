@@ -1,4 +1,31 @@
 import user_functions from "../functions/user_functions.js";
+import fs from 'fs';
+import { uploadImage } from '../functions/drive.js';
+import  User from '../models/model_user.js'; // ajusta según tu import
+
+export async function createUser(req, res, next) {
+    try {
+    // 1) Sube la imagen a Drive
+    const imageUrl = await uploadImage(req.file);
+
+    // 2) Borra el archivo local
+    fs.unlinkSync(req.file.path);
+
+    // 3) Crea el usuario en la BD
+    const { name, last_name, email, password } = req.body;
+    const newUser = await User.create({
+        name,
+        last_name,
+        email,
+        password,
+        image_url: imageUrl
+    });
+
+    res.status(201).json(newUser);
+    } catch (err) {
+    next(err);
+    }
+}
 
 
 

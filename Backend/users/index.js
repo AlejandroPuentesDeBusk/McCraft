@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
+dotenv.config();
 
 import app from './src/app.js';
 
 import './src/rabbit/rabbit_consumer.js'
 
 
-dotenv.config();
+
 const port = process.env.PORT;
 
 
