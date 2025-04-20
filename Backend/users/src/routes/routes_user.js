@@ -19,11 +19,7 @@ const router = express.Router();
  * POST /api/users
  * multipart/form-data con campo "image" + name, last_name, email, password
  */
-router.post(
-  '/',
-  upload.single('image'),
-  createUser
-);
+router.post('/create',upload.single('image'),createUser);
 
 /**
  * Si quisieras un endpoint JSON‑only (sin imagen), podrías usar:
@@ -38,36 +34,17 @@ router.post(
 /**
  * Rutas protegidas con JWT
  */
-router.get(
-  '/',
-  authenticate_token,
-  get_users
-);
+router.get('/',authenticate_token,get_users);
 
-router.get(
-  '/:id',
-  authenticate_token,
-  get_user_by_id
-);
+router.get('/:id',authenticate_token,get_user_by_id);
 
-router.put(
-  '/:id',
-  authenticate_token,
-  update_user
-);
+router.put('/:id',authenticate_token,update_user);
 
-router.delete(
-  '/:id',
-  authenticate_token,
-  delete_user
-);
+router.delete('/:id',authenticate_token,delete_user);
 
 /**
  * Login (sin protección)
  */
-router.post(
-  '/login',
-  login
-);
+router.post('/login',login);
 
 export default router;
