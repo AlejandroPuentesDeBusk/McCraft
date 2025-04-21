@@ -1,6 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../data_base/data_base_conection.js';
-import Order from './Order.js';
 
 class OrderDetail extends Model {}
 
@@ -49,15 +48,13 @@ OrderDetail.init(
         const count = [this.product_id, this.combo_id, this.custom_id]
           .filter(v => v != null).length;
         if (count !== 1) {
-          throw new Error('Debe tener exactly one of product_id, combo_id or custom_id');
+          throw new Error(
+            'Debe tener exactamente uno de product_id, combo_id o custom_id'
+          );
         }
       }
     }
   }
 );
-
-// Asociación interna
-Order.hasMany(OrderDetail, { foreignKey: 'order_id', as: 'details' });
-OrderDetail.belongsTo(Order, { foreignKey: 'order_id', as: 'order' });
 
 export default OrderDetail;

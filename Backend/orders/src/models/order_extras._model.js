@@ -1,34 +1,21 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../data_base/data_base_conection.js';
-import Order from './order_model.js';
 
-class OrderDetail extends Model {}
+class OrderExtra extends Model {}
 
-OrderDetail.init(
+OrderExtra.init(
   {
-    order_detail_id: {
+    order_extra_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    order_id: {
+    order_detail_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    product_id: {
+    ingredient_id: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    combo_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    custom_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    item_type: {
-      type: DataTypes.ENUM('PRODUCT','COMBO','CUSTOM_BURGER'),
       allowNull: false
     },
     quantity: {
@@ -36,28 +23,15 @@ OrderDetail.init(
       allowNull: false,
       defaultValue: 1
     },
-    line_price: {
+    extra_cost: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false
     }
   },
   {
     sequelize,
-    modelName: 'OrderDetail',
-    validate: {
-      oneItemType() {
-        const count = [this.product_id, this.combo_id, this.custom_id]
-          .filter(v => v != null).length;
-        if (count !== 1) {
-          throw new Error('Debe tener exactly one of product_id, combo_id or custom_id');
-        }
-      }
-    }
+    modelName: 'OrderExtra'
   }
 );
 
-// Asociación interna
-Order.hasMany(OrderDetail, { foreignKey: 'order_id', as: 'details' });
-OrderDetail.belongsTo(Order, { foreignKey: 'order_id', as: 'order' });
-
-export default OrderDetail;
+export default OrderExtra;
