@@ -25,7 +25,7 @@ export const get_combo_by_id = async (req, res, next) => {
 //_____________________________________________
 export const get_combo_full = async (req, res, next) => {
   try {
-    const combo = await com.get_combo_full(req.params.id);
+    const combo = await combo_functions.get_combo_full(req.params.id);
     res.json(combo);
   } catch (err) {
     next(err);

@@ -1,7 +1,7 @@
 import ComboProduct from '../models/associations/combo_product.js';
 import Product from '../models/product_model.js';
 import Combo from '../models/combo_model.js';
-import sequelize from '../../../users/src/data_base/data_base_conection.js';
+import sequelize from '../data_base/data_base_conection.js';
 
 const combo_functions = {
   // GET /api/combos?limit=40&offset=0

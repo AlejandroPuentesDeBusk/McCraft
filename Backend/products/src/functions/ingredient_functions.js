@@ -1,5 +1,4 @@
-import { update_user } from "../../../users/src/controllers/controllers_users.js";
-import { get_ingredients } from "../controllers/ingredients_controllers.js";
+
 import Ingredient from "../models/ingredient_model.js";
 
 import dotenv from 'dotenv'
